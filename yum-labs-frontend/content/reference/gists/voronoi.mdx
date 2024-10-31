@@ -1,0 +1,167 @@
+---
+title: Voronoi
+publishedAt: "2024-10-08"
+---
+
+Here’s a more detailed markdown explanation of your code:
+
+```markdown
+## Function: `drawSquareGridPattern`
+
+This function is designed to draw a square grid pattern along with a boundary based on a Voronoi diagram on an HTML canvas.
+
+### Parameters:
+- `ctx: CanvasRenderingContext2D`: The rendering context for drawing on the HTML canvas.
+- `width: number`: The width of the canvas.
+- `height: number`: The height of the canvas.
+
+### Function Breakdown:
+
+#### 1. **Generate Random Points**
+The function generates a random number of points (between 10 and 30). These points are spread randomly across the width and height of the canvas and will later be used to create the Voronoi diagram.
+
+```typescript
+const numPoints = Math.floor(Math.random() * 20) + 10;
+const points = range(numPoints).map(() => [Math.random() * width, Math.random() * height] as [number, number]);
+```
+
+#### 2. **Create Voronoi Diagram**
+Using the random points generated, the function creates a Voronoi diagram. This diagram divides the canvas into regions based on the proximity of the points.
+
+```typescript
+const voronoiDiagram = voronoi().extent([[0, 0], [width, height]])(points);
+```
+
+#### 3. **Find Outermost Edges**
+The function then loops through the edges of the Voronoi diagram to identify the four outermost edges of the diagram (top, bottom, left, right). These edges will form the basis for the boundary of the grid.
+
+```typescript
+let topEdge: any, bottomEdge: any, leftEdge: any, rightEdge: any;
+voronoiDiagram.edges.forEach((edge: { left: any; right: any; }) => {
+   const start = edge.left;
+   const end = edge.right;
+   if (!start || !end) return;
+   if (start[1] === 0 && end[1] === 0) topEdge = [start, end];
+   if (start[1] === height && end[1] === height) bottomEdge = [start, end];
+   if (start[0] === 0 && end[0] === 0) leftEdge = [start, end];
+   if (start[0] === width && end[0] === width) rightEdge = [start, end];
+});
+```
+
+#### 4. **Extend the Outer Edges to Form a Boundary**
+Once the outer edges are found, they are used to create a square boundary that encapsulates the Voronoi diagram.
+
+```typescript
+const boundary = [
+  topEdge && topEdge[0],
+  leftEdge && leftEdge[0],
+  bottomEdge && bottomEdge[0],
+  rightEdge && rightEdge[0],
+];
+```
+
+#### 5. **Draw the Boundary**
+A boundary is drawn in **red** with a line width of **4 pixels**. It connects the outermost edges (top, left, bottom, right) using the `lineTo` method of the canvas.
+
+```typescript
+ctx.strokeStyle = "red";
+ctx.lineWidth = 4;
+ctx.beginPath();
+boundary.forEach((point: [number, number]) => {
+  if (point) {
+    ctx.lineTo(point[0], point[1]);
+  }
+});
+ctx.stroke();
+```
+
+#### 6. **Calculate Grid Size**
+Next, the size of each square in the grid is calculated. The grid size is based on the smallest dimension (either width or height) divided by 10.
+
+```typescript
+const gridSize = Math.min(width, height) / 10;
+```
+
+#### 7. **Draw the Grid**
+Finally, the grid is drawn. Vertical and horizontal lines are drawn at intervals of the calculated grid size across the entire width and height of the canvas. The grid is drawn with **black** lines of **1-pixel** width.
+
+```typescript
+ctx.strokeStyle = "black";
+ctx.lineWidth = 1;
+ctx.beginPath();
+for (let x = gridSize; x < width; x += gridSize) {
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, height);
+}
+for (let y = gridSize; y < height; y += gridSize) {
+  ctx.moveTo(0, y);
+  ctx.lineTo(width, y);
+}
+ctx.stroke();
+```
+
+### Summary:
+This function does two main things:
+1. It draws a boundary based on a **Voronoi diagram** generated from random points across the canvas.
+2. It draws a **square grid** pattern overlay on the canvas. The grid size is based on the smallest dimension of the canvas divided by 10.
+
+The Voronoi boundary is drawn in **red**, while the grid lines are drawn in **black**.
+```ts
+export function drawSquareGridPattern(ctx: CanvasRenderingContext2D, width: number, height: number) {
+ // Generate a random set of points
+ const numPoints = Math.floor(Math.random() * 20) + 10;
+ const points = range(numPoints).map(() => [Math.random() * width, Math.random() * height] as [number, number]);
+
+ // Create a Voronoi diagram from the points
+ const voronoiDiagram = voronoi().extent([[0, 0], [width, height]])(points);
+
+ // Find the four outermost edges of the Voronoi diagram
+ let topEdge: any, bottomEdge: any, leftEdge: any, rightEdge: any;
+ voronoiDiagram.edges.forEach((edge: { left: any; right: any; }) => {
+   const start = edge.left;
+   const end = edge.right;
+   if (!start || !end) return;
+   if (start[1] === 0 && end[1] === 0) topEdge = [start, end];
+   if (start[1] === height && end[1] === height) bottomEdge = [start, end];
+   if (start[0] === 0 && end[0] === 0) leftEdge = [start, end];
+   if (start[0] === width && end[0] === width) rightEdge = [start, end];
+ });
+
+ // Extend the outer edges to form a square boundary
+ const boundary = [  
+ topEdge && topEdge[0],
+ leftEdge && leftEdge[0],
+ bottomEdge && bottomEdge[0],
+ rightEdge && rightEdge[0],
+];
+
+ // Draw the boundary
+ ctx.strokeStyle = "red";
+ ctx.lineWidth = 4;
+ ctx.beginPath();
+
+ boundary.forEach((point: [number, number]) => {
+  if (point) {
+   ctx.lineTo(point[0], point[1]);
+  }
+ });
+ ctx.stroke();
+
+ // Calculate the size of each square in the grid
+ const gridSize = Math.min(width, height) / 10;
+
+ // Draw the grid
+ ctx.strokeStyle = "black";
+ ctx.lineWidth = 1;
+ ctx.beginPath();
+ for (let x = gridSize; x < width; x += gridSize) {
+   ctx.moveTo(x, 0);
+   ctx.lineTo(x, height);
+ }
+ for (let y = gridSize; y < height; y += gridSize) {
+   ctx.moveTo(0, y);
+   ctx.lineTo(width, y);
+ }
+ ctx.stroke();
+ }
+ ```

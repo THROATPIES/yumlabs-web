@@ -1,0 +1,183 @@
+---
+title: C# Cheatsheet
+publishedAt: "2024-10-08"
+---
+## C# Basics
+1. **C# is a strongly typed language**: Variables must be declared with a specific type.
+2. **C# is case-sensitive**: Variable and method names are case-sensitive.
+3. **C# is an object-oriented language**: Everything revolves around objects and classes.
+4. **C# is a compiled language**: Code is compiled before execution.
+5. **C# is a managed language**: Memory management is handled by the .NET runtime.
+6. **C# supports multiple paradigms**: Procedural, object-oriented, and functional programming.
+
+## Data Types
+- **Primitive Types**: `float`, `int`, `double`, `char`, `string`, `bool`
+  
+## Operators
+- **Arithmetic Operators**: `+`, `-`, `*`, `/`, `%`, `++`, `--`
+- **Assignment Operators**: `+=`, `-=`, `*=`, `/=`, `%=`
+- **Comparison Operators**: `==`, `!=`, `>`, `<`, `>=`, `<=`
+- **Logical Operators**: `&&`, `||`, `!`
+
+## Control Structures
+- **Conditional Statements**: `if`, `else`, `switch`, `case`, `default`
+- **Loops**: `while`, `do-while`, `for`, `foreach`
+- **Branching**: `break`, `continue`, `goto`, `return`
+
+## Classes, Structs, and Interfaces
+- **Class Example**:
+    ```csharp
+    public class MyClass {
+        public void MyMethod() {
+            int myInt = 0;
+        }
+    }
+    ```
+- **Struct Example**:
+    ```csharp
+    public struct MyStruct {
+        public int myInt;
+    }
+    ```
+- **Interface Example**:
+    ```csharp
+    public interface MyInterface {
+        int MyProperty { get; set; }
+        event EventHandler MyEvent;
+        void MyMethod();
+    }
+    ```
+
+## Enumerations
+- **Enum Example**:
+    ```csharp
+    public enum MyEnum {
+        MyEnumValue
+    }
+    ```
+
+## Delegates and Events
+- **Delegate Example**:
+    ```csharp
+    public delegate void MyDelegate();
+    ```
+
+## Namespaces
+- **Namespace Example**:
+    ```csharp
+    namespace MyNamespace {
+        public class MyClass {
+            public void MyMethod() {
+                int myInt = 0;
+            }
+        }
+    }
+    ```
+
+## Control Flow Examples
+- **If Statement**:
+    ```csharp
+    if (true) {
+        int myInt = 0;
+    }
+    ```
+- **Switch Statement**:
+    ```csharp
+    switch (myInt) {
+        case 0:
+            int myInt = 0;
+            break;
+        case 1:
+            int myInt = 1;
+            break;
+        default:
+            int myInt = 2;
+            break;
+    }
+    ```
+
+- **For Loop**:
+    ```csharp
+    for (int i = 0; i < 10; i++) {
+        int myInt = 0;
+    }
+    ```
+
+- **Foreach Loop**:
+    ```csharp
+    foreach (int i in myInts) {
+        int myInt = 0;
+    }
+    ```
+
+## Error Handling
+- **Try-Catch Example**:
+    ```csharp
+    try {
+        int myInt = 0;
+    } catch (Exception ex) {
+        int myInt = 0;
+    } finally {
+        int myInt = 0;
+    }
+    ```
+
+## Object-Oriented Concepts
+- **Constructor and `this`**:
+    ```csharp
+    public class MyClass {
+        public int myInt;
+        public MyClass(int myInt) {
+            this.myInt = myInt;
+        }
+    }
+    ```
+
+- **Inheritance and `base`**:
+    ```csharp
+    public class MyClass {
+        public int myInt;
+        public MyClass(int myInt) {
+            this.myInt = myInt;
+        }
+    }
+
+    public class MyDerivedClass : MyClass {
+        public MyDerivedClass(int myInt) : base(myInt) {
+        }
+    }
+    ```
+
+## Common Math Methods
+- **Math Operations**:
+    ```csharp
+    var absValue = Math.Abs(-1); // Absolute value
+    var roundedUp = Math.Ceiling(1.1); // Round up
+    var maxValue = Math.Max(1, 2); // Maximum value
+    ```
+
+## Common String Methods
+- **String Operations**:
+    ```csharp
+    var myString = "Hello World";
+    myString = myString.ToUpper(); // Converts to "HELLO WORLD"
+    myString = myString.Replace("Hello", "Goodbye"); // Returns "Goodbye World"
+    ```
+
+## File Operations
+- **File Stream Example**:
+    ```csharp
+    using (var myStream = new FileStream("myFile.txt", FileMode.Open)) {
+        var myReader = new StreamReader(myStream);
+        var myString = myReader.ReadToEnd();
+    }
+    ```
+
+## Common Regular Expressions (Regex)
+- **Regex Example**:
+    ```csharp
+    var myString = "Hello World";
+    var myRegex = new Regex("Hello");
+    var myMatch = myRegex.Match(myString);
+    var myStringMatch = myMatch.Value; // Returns "Hello"
+    ```

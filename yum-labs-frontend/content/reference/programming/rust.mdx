@@ -1,0 +1,295 @@
+---
+title: Rust Cheatsheet
+publishedAt: "2024-10-08"
+---
+## Rust Basics
+1. **Rust is a systems programming language**: It's designed for performance and safety, especially safe concurrency.
+2. **Rust is statically typed**: Types are checked at compile-time, not runtime.
+3. **Rust is memory-safe**: It uses ownership, borrowing, and lifetimes to ensure memory safety without a garbage collector.
+4. **Rust uses pattern matching**: `match` and `if let` are powerful constructs in Rust.
+5. **Rust is expression-based**: Many constructs return a value, including `if`, `match`, and loops.
+
+## Data Types
+- **Primitive Types**: `i32`, `u32`, `f32`, `f64`, `char`, `bool`
+  
+## Variables
+- **Immutable Variable (default)**:
+    ```rust
+    let x = 5;
+    ```
+- **Mutable Variable**:
+    ```rust
+    let mut x = 5;
+    x = 6;
+    ```
+
+## Constants
+- **Constant Declaration**:
+    ```rust
+    const MAX_POINTS: u32 = 100_000;
+    ```
+
+## Functions
+- **Basic Function**:
+    ```rust
+    fn my_function(x: i32) -> i32 {
+        x + 1
+    }
+    ```
+
+- **Function with No Return Type (Unit Type)**:
+    ```rust
+    fn my_function() {
+        println!("Hello, World!");
+    }
+    ```
+
+## Control Structures
+- **If-Else Statement**:
+    ```rust
+    let number = 3;
+    if number < 5 {
+        println!("Condition is true");
+    } else {
+        println!("Condition is false");
+    }
+    ```
+
+- **Match Statement**:
+    ```rust
+    let number = 3;
+    match number {
+        1 => println!("One"),
+        2 => println!("Two"),
+        3 => println!("Three"),
+        _ => println!("Other"),
+    }
+    ```
+
+## Loops
+- **Infinite Loop**:
+    ```rust
+    loop {
+        println!("This will repeat forever");
+        break; // to stop the loop
+    }
+    ```
+
+- **While Loop**:
+    ```rust
+    let mut number = 3;
+    while number != 0 {
+        println!("{}", number);
+        number -= 1;
+    }
+    ```
+
+- **For Loop**:
+    ```rust
+    for number in 1..4 {
+        println!("{}", number);
+    }
+    ```
+
+## Ownership and Borrowing
+- **Ownership**:
+    ```rust
+    let s1 = String::from("hello");
+    let s2 = s1; // s1 is moved to s2
+    // println!("{}", s1); // This will cause an error, as s1 is no longer valid
+    ```
+
+- **Borrowing**:
+    ```rust
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1); // Pass by reference
+    println!("The length of '{}' is {}", s1, len);
+
+    fn calculate_length(s: &String) -> usize {
+        s.len() // Borrow without taking ownership
+    }
+    ```
+
+- **Mutable Borrowing**:
+    ```rust
+    let mut s = String::from("hello");
+    change(&mut s);
+
+    fn change(s: &mut String) {
+        s.push_str(", world");
+    }
+    ```
+
+## Structs
+- **Basic Struct**:
+    ```rust
+    struct User {
+        username: String,
+        email: String,
+        sign_in_count: u64,
+        active: bool,
+    }
+
+    let user1 = User {
+        username: String::from("john_doe"),
+        email: String::from("john@example.com"),
+        sign_in_count: 1,
+        active: true,
+    };
+    ```
+
+- **Tuple Struct**:
+    ```rust
+    struct Color(i32, i32, i32);
+    let black = Color(0, 0, 0);
+    ```
+
+## Enums
+- **Basic Enum**:
+    ```rust
+    enum Direction {
+        Up,
+        Down,
+        Left,
+        Right,
+    }
+
+    let dir = Direction::Up;
+    match dir {
+        Direction::Up => println!("Going up!"),
+        Direction::Down => println!("Going down!"),
+        _ => println!("Other direction"),
+    }
+    ```
+
+- **Enum with Data**:
+    ```rust
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
+
+    let msg = Message::Move { x: 10, y: 20 };
+    ```
+
+## Vectors
+- **Vector Creation**:
+    ```rust
+    let mut v: Vec<i32> = Vec::new();
+    v.push(1);
+    v.push(2);
+    v.push(3);
+    ```
+
+- **Accessing Vector Elements**:
+    ```rust
+    let third = &v[2];
+    println!("The third element is {}", third);
+    ```
+
+## Error Handling
+- **Result Type**:
+    ```rust
+    use std::fs::File;
+
+    fn open_file() -> Result<File, std::io::Error> {
+        let file = File::open("hello.txt")?;
+        Ok(file)
+    }
+    ```
+
+- **Panic**:
+    ```rust
+    panic!("Something went wrong!");
+    ```
+
+## Pattern Matching
+- **`match` with Option**:
+    ```rust
+    let some_value: Option<i32> = Some(5);
+    match some_value {
+        Some(x) => println!("The value is {}", x),
+        None => println!("No value"),
+    }
+    ```
+
+## Traits
+- **Defining and Implementing a Trait**:
+    ```rust
+    pub trait Greet {
+        fn say_hello(&self) -> String;
+    }
+
+    struct Person {
+        name: String,
+    }
+
+    impl Greet for Person {
+        fn say_hello(&self) -> String {
+            format!("Hello, {}!", self.name)
+        }
+    }
+    ```
+
+## Modules
+- **Defining Modules**:
+    ```rust
+    mod my_module {
+        pub fn my_function() {
+            println!("Hello from my_module!");
+        }
+    }
+
+    fn main() {
+        my_module::my_function();
+    }
+    ```
+
+## Common Standard Library Functions
+- **String Methods**:
+    ```rust
+    let my_string = String::from("hello world");
+    println!("Length: {}", my_string.len());
+    let new_string = my_string.replace("world", "Rust");
+    ```
+
+- **Math Operations**:
+    ```rust
+    let x = 2.0;
+    let y = 3.0;
+    let pow = x.powf(y); // Exponentiation
+    let sqrt = x.sqrt(); // Square root
+    ```
+
+## Iterators and Closures
+- **Iterator Example**:
+    ```rust
+    let numbers = vec![1, 2, 3];
+    for number in numbers.iter() {
+        println!("{}", number);
+    }
+    ```
+
+- **Closure Example**:
+    ```rust
+    let add = |a: i32, b: i32| -> i32 { a + b };
+    println!("Sum: {}", add(5, 3));
+    ```
+
+## Memory Management
+- **Ownership and Borrowing**: Rust ensures memory safety through its ownership and borrowing rules without the need for a garbage collector.
+- **The `Drop` Trait**: The `Drop` trait allows for custom logic when a value goes out of scope.
+
+## Error Handling
+- **Result and Option Types**:
+    - `Result<T, E>` is used for functions that may return an error.
+    - `Option<T>` is used for optional values that may be `None`.
+
+## Crates
+- **Adding a Crate**:
+    ```toml
+    [dependencies]
+    rand = "0.8.4"
+    ```

@@ -1,0 +1,35 @@
+---
+title: Octogon Math
+publishedAt: "2024-10-08"
+summary: "My first post on my new blog."
+---
+
+```ts
+const canvas = document.querySelector<HTMLCanvasElement>('#myCanvas')!
+const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+
+export function drawBoundingBox() {
+  if (!ctx) return;
+  const side = Math.min(canvas.width, canvas.height);
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = side / 2;
+
+  ctx.beginPath();
+  ctx.moveTo(centerX + radius, centerY);
+  for (let i = 1; i <= 7; i++) {
+    const angle = i * Math.PI / 4;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.stroke();
+}
+
+
+
+
+const main = () =>   drawBoundingBox();
+main();
+```

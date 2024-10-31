@@ -1,0 +1,171 @@
+---
+title: '50 Algorithms Every Programmer Should Know'
+publishedAt: "2024-10-08"
+---
+---
+> Discover 50 essential algorithms every programmer should know, covering fundamental topics like sorting, searching, dynamic programming, and graph traversal. This list equips you with key techniques to solve common problems efficiently and enhance your coding skills. 
+---
+# 1. Sorting Algorithms
+- **1. Quick Sort**: Efficient, divide-and-conquer algorithm that uses a pivot to partition the array.
+- **2. Merge Sort**: A stable, divide-and-conquer sorting algorithm with O(n log n) time complexity.
+- **3. Heap Sort**: A comparison-based algorithm that uses a binary heap.
+- **4. Insertion Sort**: Simple sorting algorithm suitable for small datasets.
+- **5. Bubble Sort**: A straightforward but inefficient sorting algorithm.
+- **6. Selection Sort**: Sorts by repeatedly selecting the minimum element.
+- **7. Radix Sort**: Efficient non-comparison sort for integers with multiple digits.
+- **8. Counting Sort**: Efficient for sorting small integer arrays.
+- **9. Bucket Sort**: Sorts elements by distributing them into buckets, then sorting each bucket.
+- **10. Tim Sort**: A hybrid sorting algorithm derived from merge and insertion sort, used in Python and Java.
+---
+# 2. Search Algorithms
+- **11. Binary Search**: Efficient search algorithm for sorted arrays with O(log n) complexity.
+- **12. Linear Search**: A simple search algorithm with O(n) time complexity.
+
+#### **What is Linear Search?**
+Linear Search is one of the simplest searching algorithms. As the name implies, it works by searching through a list of items in a linear or sequential fashion, meaning it checks each element in the list, one by one, until it finds the target value. It is sometimes referred to as a **sequential search**.
+
+This algorithm is particularly useful when the list is **unsorted** because it doesn't rely on any preconditions about the order of elements, making it a versatile choice for small datasets.
+
+#### **How Does Linear Search Work?**
+1. **Start at the Beginning**:  
+   The algorithm starts at the very first element of the list (or array).
+
+2. **Comparison**:  
+   It checks whether the current element matches the target value you are looking for. If it does, the algorithm stops and returns the index (or position) of that element.
+
+3. **Move to the Next**:  
+   If the current element does not match the target, the algorithm moves to the next element in the list.
+
+4. **Repeat Until Found or End**:  
+   This process continues until:
+   - The target value is found (in which case the index is returned), or
+   - The algorithm reaches the end of the list without finding the target (in which case it returns a value indicating failure, such as `-1` in JavaScript and Python or `None` in Rust).
+
+#### **Key Properties of Linear Search**
+- **Time Complexity**:  
+  The time complexity of Linear Search is **O(n)**. This means that in the worst-case scenario, the algorithm needs to check every single element in the list, making it **linear** in terms of the number of elements.
+  
+  For example, if the list has 100 elements, Linear Search might need to look at all 100 of them to find the target, or to conclude that it isn't present. This makes it less efficient for large datasets.
+
+- **Best-Case Scenario**:  
+  The best case occurs when the target element is the first element in the list. In this case, the time complexity is **O(1)**, because only one comparison is needed.
+
+- **Worst-Case Scenario**:  
+  The worst case happens when:
+  1. The target element is the last element in the list.
+  2. The target element is not present in the list at all.
+  
+  In both cases, the algorithm must go through the entire list, resulting in **O(n)** comparisons.
+
+#### **Advantages of Linear Search**
+- **Simplicity**:  
+  Linear Search is extremely easy to understand and implement. It requires no advanced data structures or complex logic, making it a great starting point for beginners.
+
+- **Unsorted Data**:  
+  Unlike more complex algorithms like Binary Search, Linear Search does **not require the list to be sorted**. It works equally well on any unordered or unsorted dataset.
+
+- **Works on Any Data Type**:  
+  Linear Search is not restricted to numeric data. It can be used to search through arrays of strings, characters, or even objects, as long as you define what "equality" means for the elements.
+
+#### **Disadvantages of Linear Search**
+- **Inefficient for Large Lists**:  
+  While it’s simple, Linear Search is not the most efficient algorithm for large datasets. Since it must examine every element in the worst case, it becomes too slow for lists with thousands or millions of elements.
+
+- **Not Optimal for Sorted Lists**:  
+  When the data is already sorted, there are far more efficient algorithms, such as **Binary Search**, that can find the target in a fraction of the time.
+
+#### **When to Use Linear Search?**
+- **Small Datasets**:  
+  Linear Search is practical for small datasets where the performance hit of checking every element is negligible.
+  
+- **Unsorted Data**:  
+  If the dataset is unsorted and no additional sorting is required, Linear Search is a good option. Sorting a list just to run a more efficient search might not be worth the overhead in these cases.
+
+- **Single Search**:  
+  If you're only going to perform a search once or infrequently, Linear Search is an easy and fast-to-implement choice.
+
+---
+
+### **Visualizing Linear Search**
+
+Let’s say we have the following list:
+
+```js
+ [23, 78, 45, 11, 65, 90, 33]
+```
+
+We want to find the number **65** in this list. Here’s how Linear Search works step by step:
+
+1. **Step 1**:  
+   Check the first element (23).  
+   23 is not equal to 65, so move to the next element.
+
+2. **Step 2**:  
+   Check the second element (78).  
+   78 is not equal to 65, so move to the next element.
+
+3. **Step 3**:  
+   Check the third element (45).  
+   45 is not equal to 65, so move to the next element.
+
+4. **Step 4**:  
+   Check the fourth element (11).  
+   11 is not equal to 65, so move to the next element.
+
+5. **Step 5**:  
+   Check the fifth element (65).  
+   **65 is equal to 65**, so we found our target! The algorithm returns the index of this element, which is 4 (or the fifth element in the list).
+
+If the number **65** hadn’t been in the list, the algorithm would have continued checking all elements until reaching the end and returned `-1` (or `None` in Rust), indicating the target wasn’t found.
+
+
+
+- **13. Depth-First Search (DFS)**: Graph traversal algorithm exploring as far as possible along each branch.
+- **14. Breadth-First Search (BFS)**: Graph traversal algorithm that explores all neighbors before moving deeper.
+- **15. Exponential Search**: Used for unbounded/infinite lists.
+- **16. Jump Search**: Searches an ordered list by jumping ahead by a fixed number of elements.
+- **17. Interpolation Search**: Variation of binary search, best for uniformly distributed datasets.
+---
+# 3. Graph Algorithms
+- **18. Dijkstra’s Algorithm**: Finds the shortest path from a source to all vertices in a weighted graph.
+- **19. Bellman-Ford Algorithm**: Finds the shortest paths in graphs with negative weights.
+- **20. Floyd-Warshall Algorithm**: Solves the all-pairs shortest path problem.
+- **21. Prim’s Algorithm**: Finds the minimum spanning tree of a graph.
+- **22. Kruskal’s Algorithm**: Another algorithm for finding the minimum spanning tree of a graph.
+- **23. A* Algorithm**: A popular pathfinding algorithm used in AI.
+- **24. Topological Sorting**: Orders vertices in a Directed Acyclic Graph (DAG) based on dependencies.
+- **25. Tarjan’s Algorithm**: Used to find strongly connected components in a graph.
+- **26. Kosaraju’s Algorithm**: Another algorithm for finding strongly connected components.
+---
+# 4. Dynamic Programming
+- **27. Fibonacci Sequence**: Classic problem often solved with dynamic programming to avoid recomputation.
+- **28. Longest Common Subsequence (LCS)**: Finds the longest subsequence present in both sequences.
+- **29. Longest Increasing Subsequence (LIS)**: Finds the longest increasing subsequence in an array.
+- **30. Edit Distance (Levenshtein Distance)**: Measures how many edits are required to change one string into another.
+- **31. Knapsack Problem**: Solves the problem of selecting items with weight constraints to maximize value.
+- **32. Matrix Chain Multiplication**: Determines the optimal way to multiply a chain of matrices.
+- **33. Subset Sum Problem**: Determines whether there is a subset of numbers that adds up to a given sum.
+- **34. Coin Change Problem**: Calculates the fewest number of coins needed to make change for a certain amount.
+- **35. Rod Cutting Problem**: Cuts a rod to maximize the profit from its pieces.
+---
+# 5. Greedy Algorithms
+- **36. Fractional Knapsack Problem**: Similar to the knapsack problem but allows dividing items.
+- **37. Huffman Coding**: Compression algorithm that assigns variable-length codes to input characters.
+- **38. Activity Selection Problem**: Selects the maximum number of activities that don’t overlap.
+- **39. Job Sequencing Problem**: Maximizes the number of jobs completed within given deadlines.
+- **40. Kruskal’s Algorithm**: Also fits here as it uses a greedy approach for MST.
+- **41. Prim’s Algorithm**: Another greedy approach for finding the MST.
+---
+# 6. Mathematical Algorithms
+- **42. Euclidean Algorithm**: Finds the greatest common divisor (GCD) of two numbers.
+- **43. Sieve of Eratosthenes**: Efficient algorithm for finding all prime numbers up to a certain limit.
+- **44. Fast Exponentiation**: Efficiently computes powers of a number.
+- **45. Modular Exponentiation**: Efficient exponentiation under a modulus, used in cryptography.
+- **46. Fermat’s Little Theorem**: Used in number theory for finding large powers modulo primes.
+- **47. Miller-Rabin Primality Test**: Determines if a number is prime or composite.
+- **48. Chinese Remainder Theorem**: Solves systems of simultaneous congruences.
+- **49. Karatsuba Multiplication**: Fast multiplication algorithm for large numbers.
+- **50. Extended Euclidean Algorithm**: Finds GCD and also solves Diophantine equations.
+
+
+

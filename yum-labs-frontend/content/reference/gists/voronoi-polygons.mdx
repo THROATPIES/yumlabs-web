@@ -1,0 +1,89 @@
+---
+title: "Voronoi Polygons"
+publishedAt: "2024-10-08"
+---
+
+Here’s a markdown explanation of the provided `drawRandomRoadPattern` function:
+
+```markdown
+## Function: `drawRandomRoadPattern`
+
+This function generates and draws a random road-like pattern based on a Voronoi diagram on an HTML canvas.
+
+### Parameters:
+- `ctx: CanvasRenderingContext2D`: The rendering context of the HTML canvas where the drawing will occur.
+- `width: number`: The width of the canvas.
+- `height: number`: The height of the canvas.
+
+### Function Breakdown:
+
+#### 1. **Generate Random Points**
+The function starts by generating a random number of points (between 10 and 30). These points are scattered randomly across the canvas, and they will serve as the basis for generating the Voronoi diagram.
+
+```typescript
+const numPoints = Math.floor(Math.random() * 20) + 10;
+const points = range(numPoints).map(() => [Math.random() * width, Math.random() * height] as [number, number]);
+```
+
+- `numPoints`: A random number of points between 10 and 30 is calculated.
+- `points`: An array of points, each containing random `x` and `y` coordinates within the dimensions of the canvas (`width` and `height`).
+
+#### 2. **Create Voronoi Diagram**
+A Voronoi diagram is then generated from the random points. The Voronoi diagram divides the canvas into regions where each region contains all points closer to one of the random points than to any other.
+
+```typescript
+const voronoiDiagram = voronoi().extent([[0, 0], [width, height]])(points);
+```
+
+- `voronoi()`: A function used to create a Voronoi diagram.
+- `extent([[0, 0], [width, height]])`: Sets the extent (the boundaries) of the diagram to match the canvas dimensions.
+
+#### 3. **Draw the Voronoi Diagram**
+The function then loops through each edge of the Voronoi diagram and draws it on the canvas. The edges are drawn using **white lines** with a **0.5-pixel width** to simulate roads.
+
+```typescript
+ctx.strokeStyle = "white";
+ctx.lineWidth = 0.5;
+ctx.beginPath();
+voronoiDiagram.edges.forEach((edge: { left: any; right: any; }) => {
+  const start = edge.left;
+  const end = edge.right;
+  if (!start || !end) return;
+  ctx.moveTo(start[0], start[1]);
+  ctx.lineTo(end[0], end[1]);
+});
+ctx.stroke();
+```
+
+- **`ctx.strokeStyle = "white"`**: Sets the color of the road lines to white.
+- **`ctx.lineWidth = 0.5`**: Sets the thickness of the lines to 0.5 pixels.
+- **`ctx.beginPath()`**: Begins the path to draw the Voronoi diagram.
+- **`ctx.moveTo(start[0], start[1])`**: Moves the cursor to the start point of an edge.
+- **`ctx.lineTo(end[0], end[1])`**: Draws a line from the start point to the end point of the edge.
+- **`ctx.stroke()`**: Renders the lines on the canvas.
+
+### Summary:
+The `drawRandomRoadPattern` function creates a random Voronoi diagram from a set of randomly generated points and draws it on the canvas. The result looks like a random road network, with white lines representing roads, drawn at a thickness of 0.5 pixels.
+```ts
+export function drawRandomRoadPattern(ctx: CanvasRenderingContext2D, width: number, height: number) {
+  // Generate a random set of points
+  const numPoints = Math.floor(Math.random() * 20) + 10;
+  const points = range(numPoints).map(() => [Math.random() * width, Math.random() * height] as [number, number]);
+
+  // Create a Voronoi diagram from the points
+  const voronoiDiagram = voronoi().extent([[0, 0], [width, height]])(points);
+
+  // Draw the Voronoi diagram
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 0.5;
+  ctx.beginPath();
+  voronoiDiagram.edges.forEach((edge: { left: any; right: any; }) => {
+    const start = edge.left;
+    const end = edge.right;
+    if (!start || !end) return;
+    ctx.moveTo(start[0], start[1]);
+    ctx.lineTo(end[0], end[1]);
+  });
+  ctx.stroke();
+}
+```
